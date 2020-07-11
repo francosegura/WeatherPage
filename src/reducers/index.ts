@@ -1,8 +1,10 @@
 import { combineReducers } from "redux";
-import ExampleReducer from "./exampleReducer";
+import { weatherReducer } from "./weatherReducer";
 
 const allReducers = combineReducers({
-  example: ExampleReducer,
+  weather: weatherReducer,
 });
-export default allReducers;
+
 export type RootState = ReturnType<typeof allReducers>;
+
+export default allReducers;
