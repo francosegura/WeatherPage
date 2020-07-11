@@ -2,13 +2,13 @@ import { WeatherAction, WeatherActionType } from "../actions/weatherActions";
 import { GetWeatherResponse } from "../actions/actionTypes";
 
 export interface WeatherState {
-  data?: GetWeatherResponse;
+  currentCityData?: GetWeatherResponse;
   fetching: boolean;
   error?: string;
 }
 
 const initialState: WeatherState = {
-  data: undefined,
+  currentCityData: undefined,
   fetching: false,
   error: undefined,
 };
@@ -27,7 +27,7 @@ export function weatherReducer(
     case WeatherActionType.FetchSuccess:
       return {
         ...state,
-        data: action.payload,
+        currentCityData: action.payload,
         fetching: false,
       };
     case WeatherActionType.FetchError:

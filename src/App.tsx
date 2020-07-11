@@ -12,7 +12,7 @@ import {
 import WeatherPage from "./screens/Weather";
 import rootSaga from "./sagas/rootSaga";
 import moment from "moment";
-import 'moment/locale/es';
+import "moment/locale/es";
 
 declare global {
   interface Window {
@@ -28,7 +28,7 @@ const store = createStore(
 );
 sagaMiddleware.run(rootSaga);
 
-moment.locale('es');
+moment.locale("es");
 
 const App = () => {
   return (
