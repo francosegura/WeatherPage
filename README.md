@@ -1,5 +1,3 @@
-This project is a BoilerPlate created by Franco Segura
-
 ## Techologies used
 
  - React
@@ -8,6 +6,8 @@ This project is a BoilerPlate created by Franco Segura
  - Router
  - Typescript
  - Hooks
+ - Saga
+ - Moment
 
 ## Scripts to run
 
