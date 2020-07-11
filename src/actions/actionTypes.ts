@@ -1,14 +1,45 @@
-export type actionType = {
-  type: string;
-  error?: boolean;
-  payload?: string;
-};
+export interface GetWeatherOptions {
+  lat: string;
+  lon: string;
+}
 
-export const ERROR = {
-  DEFAULT: "default_error",
-};
-
-export const ACTIONS_EXAMPLE = {
-  GET: "get_blabla",
-  GET_SUCCESS: "get_blabla_success",
-};
+export interface GetWeatherResponse {
+  lon: number;
+  lat: number;
+  timezone: string;
+  timezone_offset: number;
+  daily: {
+    dt: number;
+    sunrise: number;
+    sunset: number;
+    temp: {
+      day: number;
+      min: number;
+      max: number;
+      night: number;
+      eve: number;
+      morn: number;
+    };
+    feels_like: {
+      day: number;
+      night: number;
+      eve: number;
+      morn: number;
+    };
+    pressure: number;
+    humidity: number;
+    dew_point: number;
+    wind_speed: number;
+    wind_deg: number;
+    weather: [
+      {
+        id: number;
+        main: string;
+        description: string;
+        icon: string;
+      }
+    ];
+    clouds: number;
+    uvi: number;
+  }[];
+}

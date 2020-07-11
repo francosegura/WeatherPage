@@ -1,1 +1,1 @@
-export {getName} from './exampleService'
+export { getWeatherByCity } from "./weatherService";

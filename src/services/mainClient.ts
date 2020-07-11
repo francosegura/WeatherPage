@@ -1,14 +1,16 @@
-import axios, { AxiosResponse } from "axios";
-import { ExampleType } from "../types";
+import axios from "axios";
 
-const NameUrls = {
-  getName: "getName",
-};
-
-const mainApi = axios.create({
-  baseURL: "http://demo4272701.mockable.io/",
+const openWeatherApi = axios.create({
+  baseURL: "https://api.openweathermap.org/data/2.5/",
 });
 
-export async function getName(): Promise<AxiosResponse<ExampleType>> {
-  return mainApi.get<ExampleType>(NameUrls.getName);
-}
+export const defaultParams = {
+  appid: "ad10024397e7abcc782d1afaaf9811c1",
+  units: "metric",
+  lang: "sp",
+  exclude: "minutely,hourly,current",
+};
+
+export const OpenWeatherApiClient = {
+  get: openWeatherApi.get,
+};
