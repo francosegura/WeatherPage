@@ -30,6 +30,8 @@ sagaMiddleware.run(rootSaga);
 
 moment.locale("es");
 
+//React-Router prepared and configured to add more pages
+
 const App = () => {
   return (
     <Router>

@@ -3,12 +3,16 @@ import { useShallowEqualSelector } from "../utils/reduxUtils";
 import { useDispatch } from "react-redux";
 import { WeatherActions } from "../actions/weatherActions";
 import { RootState } from "../reducers";
-import { Title } from "../components/Title";
-import { WeatherList } from "../components/WeatherList";
 import { selectableCities } from "../services/mainClient";
 import { GeneralWrapper } from "../components/Wrapper";
 import { DaysSelector } from "../components/DaysSelector";
 import { Spinner } from "../components/Spinner";
+import { Title } from "../components/Title";
+import { WeatherList } from "../components/WeatherList";
+
+/*TODO: add useWeatherData hook to separate view layout of controller layout*/
+/*TODO: use Jest to test all views*/
+/*TODO: add i18n to customize the text's language */
 
 const Weather = () => {
   const dispatch = useDispatch();
