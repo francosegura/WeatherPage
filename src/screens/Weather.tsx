@@ -1,31 +1,65 @@
-import React, { Fragment, useLayoutEffect } from "react";
+import React, { useCallback, useLayoutEffect, useState } from "react";
 import { useShallowEqualSelector } from "../utils/reduxUtils";
 import { useDispatch } from "react-redux";
 import { WeatherActions } from "../actions/weatherActions";
 import { RootState } from "../reducers";
 import { Title } from "../components/Title";
 import { WeatherList } from "../components/WeatherList";
+import { selectableCities } from "../services/mainClient";
+import { GeneralWrapper } from "../components/Wrapper";
+import { DaysSelector } from "../components/DaysSelector";
+import { Spinner } from "../components/Spinner";
 
 const Weather = () => {
   const dispatch = useDispatch();
-  const currentCityData = useShallowEqualSelector(
-    (state: RootState) => state.weather.currentCityData
+  const { currentCity, extraCity } = useShallowEqualSelector(
+    (state: RootState) => state.weather
   );
+  const [selectedCity, setSelectedCity] = useState("");
+
+  const getWeatherByCity = useCallback(
+    (city: string) => {
+      dispatch(
+        WeatherActions.fetchExtraCityStarted(selectableCities[city].coord)
+      );
+    },
+    [dispatch]
+  );
+
   useLayoutEffect(() => {
-    dispatch(
-      WeatherActions.fetchStarted({ lon: "-58.450001", lat: "-34.599998" })
-    );
+    selectedCity !== "" && getWeatherByCity(selectedCity);
+  }, [selectedCity, getWeatherByCity]);
+
+  useLayoutEffect(() => {
+    navigator.geolocation.getCurrentPosition(function (position) {
+      dispatch(
+        WeatherActions.fetchStarted({
+          lat: position.coords.latitude.toString(),
+          lon: position.coords.longitude.toString(),
+        })
+      );
+    });
   }, [dispatch]);
 
   return (
-    <Fragment>
-      {currentCityData && (
-        <Fragment>
-          <Title>Ciudad actual</Title>
-          <WeatherList weatherDays={currentCityData} />
-        </Fragment>
+    <GeneralWrapper>
+      <Title>Ciudad actual</Title>
+      {currentCity.error && <Title>{currentCity.error}</Title>}
+      {currentCity.fetching && <Spinner />}
+      {currentCity.data && <WeatherList weatherDays={currentCity.data} />}
+      <DaysSelector
+        value={selectedCity}
+        onDaysSelectorChange={setSelectedCity}
+      />
+      {selectedCity !== "" && (
+        <>
+          <Title>{selectableCities[selectedCity].displayName}</Title>
+          {extraCity.fetching && <Spinner />}
+          {extraCity.error && <Title>{extraCity.error}</Title>}
+          {extraCity.data && <WeatherList weatherDays={extraCity.data} />}
+        </>
       )}
-    </Fragment>
+    </GeneralWrapper>
   );
 };
 

@@ -19,5 +19,11 @@ export const WeatherDayWrapper = styled.div`
 export const WeatherDaysListWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
+`;
+
+export const GeneralWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 0 2em 2em 2em;
 `;
